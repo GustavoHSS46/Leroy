@@ -84,6 +84,10 @@ h2 {
   margin-top: 5px;
 }
 
+h1 {
+  width: 90%;
+}
+
 .star {
   height: 60px;
   width: 60px;
@@ -110,7 +114,7 @@ svg {
 }
 
 .cardBooks {
-  height: 90%;
+  height: 450px;
   width: 300px;
   margin: 15px;
   box-shadow: 0px 2px 10px black;
@@ -118,6 +122,11 @@ svg {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  transition: 450ms;
+}
+
+.cardBooks:hover {
+  transform: scale(.95);
 }
 
 .imgs {
