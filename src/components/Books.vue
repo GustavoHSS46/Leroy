@@ -5,26 +5,25 @@
     </div>
     <div class="catalogue">
       <div v-for="book in books" :key="book.id" class="cardBooks">
-        <div class="imgs">
-          <img :src="book.poster" alt="" />
-        </div>
-        <h1>
-          {{ book.title }}
-        </h1>
-        <h2>
-          R${{ book.price }}
-        </h2>
+        <router-link :to="{ name: 'product', params: { id: book.id } }">
+          <div class="imgs">
+            <img :src="book.poster" alt="" />
+          </div>
+          <h1>
+            {{ book.title }}
+          </h1>
+          <h2>R${{ book.price }}</h2>
 
-        <div class="starContainer">
-
-          <div class="star" v-for="star in book.stars">
-            <div>
-              <font-awesome-icon icon="fa-solid fa-star" />
+          <div class="starContainer">
+            <div class="star" v-for="star in book.stars">
+              <div>
+                <font-awesome-icon icon="fa-solid fa-star" />
+              </div>
             </div>
           </div>
+        </router-link>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
@@ -110,23 +109,36 @@ svg {
   align-items: center;
   justify-content: space-around;
   overflow-y: hidden;
-
 }
 
-.cardBooks {
+a {
   height: 450px;
   width: 300px;
-  margin: 15px;
+  margin-top: 25px;
+  margin-bottom: 25px;
   box-shadow: 0px 2px 10px black;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   transition: 450ms;
+  color: black;
+  text-decoration: none;
+}
+
+.cardBooks {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  transition: 450ms;
+  color: black;
 }
 
 .cardBooks:hover {
-  transform: scale(.95);
+  transform: scale(0.95);
 }
 
 .imgs {
