@@ -1,6 +1,5 @@
 <template>
   <Productdetails :bookId="this.id"/>
-  <Productdetails :bookId="this.id"/>
 </template>
 
 <script>
