@@ -3,14 +3,14 @@
     <div class="mainContainer">
       <div class="containerImags">
         <div class="imgs">
-          <img :src="book.poster" alt="" />
+          <img :src="product.poster" alt="" />
         </div>
         <div class="btn">
           <button class="buy">
             <font-awesome-icon icon="fa-solid fa-bag-shopping" />
             <h2>buy</h2>
           </button>
-          <button class="cart">
+          <button @click="addCart()" class="cart">
             <font-awesome-icon icon="fa-solid fa-cart-shopping" />
             <h2>cart</h2>
           </button>
@@ -18,13 +18,13 @@
       </div>
       <div class="containerDetails">
         <div class="title">
-          <h1>{{ book.title }}</h1>
+          <h1>{{ product.title }}</h1>
         </div>
         <div class="author language">
-          <h2>Edição {{ book.language }} | {{ book.author }}</h2>
+          <h2>Edição {{ product.language }} | {{ product.author }}</h2>
         </div>
         <div class="starContainer">
-          <div class="star" v-for="star in book.stars">
+          <div class="star" v-for="star in product.stars">
             <div>
               <font-awesome-icon icon="fa-solid fa-star" />
             </div>
@@ -32,10 +32,10 @@
         </div>
         <div class="price">
           <h2>Capa Comum</h2>
-          <h3>R${{ book.price }}</h3>
+          <h3>R${{ product.price }}</h3>
         </div>
         <div class="overview">
-          <h3>{{ book.overview }}</h3>
+          <h3>{{ product.overview }}</h3>
         </div>
       </div>
     </div>
@@ -43,46 +43,85 @@
       <div class="pags">
         <h3>Número de páginas</h3>
         <font-awesome-icon icon="fa-solid fa-scroll" />
-        <h2>{{ book.pags }} páginas</h2>
+        <h2>{{ product.pags }} páginas</h2>
       </div>
       <div class="language">
         <h3>Idioma</h3>
         <font-awesome-icon icon="fa-solid fa-earth-americas" />
-        <h2>{{ book.language }}</h2>
+        <h2>{{ product.language }}</h2>
       </div>
       <div class="editor">
         <h3>Editora</h3>
         <font-awesome-icon icon="fa-solid fa-print" />
-        <h2>{{ book.editor }}</h2>
+        <h2>{{ product.editor }}</h2>
+      </div>
+      <div class="calendar">
+        <h3>Data De Lançamento</h3>
+        <font-awesome-icon icon="fa-solid fa-calendar" />
+        <h2>{{ product.cameOut }}</h2>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import swal from "sweetalert2";
+window.Swal = swal;
 import db from "../firebase/init.js";
 import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 
 export default {
   props: {
-    bookId: String,
+    Id: String,
+    type: String,
   },
   data() {
     return {
-      book: [],
+      product: [],
     };
   },
   created() {
-    const docRef = doc(db, "books", this.bookId);
+    const docRef = doc(db, this.type, this.Id);
     getDoc(docRef).then((doc) => {
       console.log(doc.data(), doc.id);
-      this.book = doc.data();
+      this.product = doc.data();
     });
+  },
+  methods: {
+    addCart() {
+      Swal.fire({
+        title:`${this.product.title}`,
+        text:"Was Successfully Added To Your Cart",
+        icon: "success",
+        confirmButtonColor: '#17bebb',
+        width: 800,
+        backdrop: `
+    rgba(0,0,0,0.7)
+    left top
+  `
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Chivo:wght@100&display=swap");
+
+h1{
+  font-family: "chivo", sans-serif !important;
+}
+h2{
+  font-family: "chivo", sans-serif !important;
+}
+h3{
+  font-family: "chivo", sans-serif !important;
+}
+h4{
+  font-family: "chivo", sans-serif !important;
+}
+
+
 h1 {
   font-size: 48px;
   text-transform: uppercase;
@@ -143,7 +182,7 @@ h1 {
   background-color: #17bebb;
 }
 .cart {
-  background-color: #FE654F;
+  background-color: #fe654f;
 }
 
 .btn > * {
@@ -259,7 +298,7 @@ svg {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #FFC53A;
+  background-color: #ffc53a;
   border-radius: 20px;
   border: 3;
 }

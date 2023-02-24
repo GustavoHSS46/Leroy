@@ -5,7 +5,7 @@
     </div>
     <div class="catalogue">
       <div v-for="book in books" :key="book.id" class="cardBooks">
-        <router-link :to="{ name: 'product', params: { id: book.id } }">
+        <router-link :to="{ name: 'product', params:{ id: book.id }, query: {type: book.type}}">
           <div class="imgs">
             <img :src="book.poster" alt="" />
           </div>
