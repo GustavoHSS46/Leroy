@@ -1,7 +1,11 @@
 <template>
   <div class="mainContent">
     <Navbar class="Nav"/>
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <Transition name="route" >
+        <component :is="Component"/>
+      </Transition>
+    </router-view>
   </div>
   <Footer class="Footer"/>
 </template>
@@ -65,5 +69,15 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: #ffc53a;
   border-radius: 40px;
+}
+
+.route-enter-active,
+.route-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.route-enter-from,
+.route-leave-to {
+  opacity: 0;
 }
 </style>
