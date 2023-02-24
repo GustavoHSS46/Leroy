@@ -2,7 +2,7 @@
   <div class="mainContent">
     <Navbar class="Nav"/>
     <router-view v-slot="{ Component }">
-      <Transition name="route" >
+      <Transition name="route" mode="out-in">
         <component :is="Component"/>
       </Transition>
     </router-view>
@@ -56,6 +56,7 @@ body {
 
 .mainContent {
   width: 85%;
+  height: 60vw;
 }
 
 ::-webkit-scrollbar {
@@ -71,13 +72,18 @@ body {
   border-radius: 40px;
 }
 
-.route-enter-active,
+.route-enter-active {
+  transition: all .8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
 .route-leave-active {
-  transition: opacity 0.5s ease;
+  transition: all .8s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .route-enter-from,
 .route-leave-to {
+  transform: translateX(2000px);
   opacity: 0;
 }
+
 </style>

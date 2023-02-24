@@ -1,7 +1,8 @@
 <template>
   <div class="home">
-    <Carrousel />
-    <Books />
+    
+      <Carrousel />
+      <Books />
   </div>
 </template>
 
